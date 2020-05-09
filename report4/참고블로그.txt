@@ -1,0 +1,15 @@
+전체적인 틀 		https://go-it.tistory.com/4
+
+기본 틀			수업 내용
+
+옵션 종류			https://big-sun.tistory.com/27
+		
+memset			https://twpower.github.io/79-usage-of-memset-function
+
+getcwd / free		https://www.it-note.kr/209
+
+struct dilent		https://sosal.kr/114
+
+struct stat		https://bodamnury.tistory.com/38
+
+	
