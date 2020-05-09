@@ -1,0 +1,9 @@
+1. dl
+
+2. dl -al	/  dl -la  / dl -ll
+
+3. dl -ai	/  dl -ia
+
+4. dl -ao  /   dl -oa
+
+5. dl -alh
