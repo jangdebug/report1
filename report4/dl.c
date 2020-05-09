@@ -11,24 +11,24 @@
 #include <time.h>
 #include <math.h>
 
-char type(mode_t);		//파일 타입
+char type(mode_t);			//파일 타입
 char *perm(mode_t);		//파일 허가권
 
 /*	--- struct stat에 포함된 파일 정보 ---
 struct stat {
-     dev_t           st_dev;       		장치 파일의 위치 및 여부
-     ino_t           st_ino;       		파일의 inode 번호
-     mode_t        	 st_mode;     		파일의 모드
-     nlink_t         st_nlink;			파일의 하드링크 수
-     uid_t           st_uid;      		user ID
-     gid_t           st_gid;     		group ID
-     dev_t           st_rdev;    		장치 파일(inode)를 기술
-     off_t           st_size;    		파일의 사이즈
-     blksize_t       st_blksize;   		효율적인 I/O 파일 시스템 위한 블럭 사이즈
-     blkcnt_t        st_blocks;   		파일에 할당된 블럭 수 
-     time_t;         st_atime;    		마지막 접근 시간
-     time_t;         st_mtime;   		마지막 수정 시간
-     time_t          st_xtime;    		마지막 상태 변화 시간
+     dev_t          	st_dev;       		장치 파일의 위치 및 여부
+     ino_t		st_ino;       		파일의 inode 번호
+     mode_t     	st_mode;     		파일의 모드
+     nlink_t         	st_nlink;			파일의 하드링크 수
+     uid_t           	st_uid;      		user ID
+     gid_t          	st_gid;     		group ID
+     dev_t          	st_rdev;    		장치 파일(inode)를 기술
+     off_t          	st_size;    		파일의 사이즈
+     blksize_t     	st_blksize;   		효율적인 I/O 파일 시스템 위한 블럭 사이즈
+     blkcnt_t      	st_blocks;   		파일에 할당된 블럭 수 
+     time_t;       	st_atime;    		마지막 접근 시간
+     time_t;        	st_mtime;   		마지막 수정 시간
+     time_t        	st_xtime;    		마지막 상태 변화 시간
 };
 */
 
@@ -65,7 +65,7 @@ void ls_lhuman(struct stat *st)
 
 //	참조 블로그 : https://big-sun.tistory.com/27		(옵션 종류) //
 void Is_option(struct dirent d, struct stat st, char * option)
-{																		// a : 숨김 파일 포함
+{								// 기본적으로 a 옵션										// a : 숨김 파일 포함
 	if((strcmp(option, "-al") == 0) || (strcmp(option, "-la") == 0))	// l 옵션		
 	{
 		ls_ltype(&st);		// 각 파일의 모드
@@ -78,7 +78,7 @@ void Is_option(struct dirent d, struct stat st, char * option)
 	{
 		ls_lnode(&st);		// inode(고유 번호) 출력
 	}
-	else if (strcmp(option,"-alh")==0)									// h 옵션 
+	else if (strcmp(option,"-alh")==0)				// h 옵션 
 		{
 		ls_ltype(&st); 
 		ls_llink(&st);
@@ -102,42 +102,42 @@ void Is_option(struct dirent d, struct stat st, char * option)
 /* a옵션을 무조건 포함하는 코드 */
 
 int main(int argc, char *argv[]) 		//argc : main 함수에 전달된 인자의 개수
-										//**argv = *argv[] : 가변적인 개수의 문자열 (전해지는 데이터가 모두 문자열로 전해짐)
+					//**argv = *argv[] : 가변적인 개수의 문자열 (전해지는 데이터가 모두 문자열로 전해짐)
 {
  	char * dir = (char *)malloc(sizeof(char) * 1024);
 	memset(dir, 0, 1024);		//void * memset (void  ptr, int value, size_t num);
-								//(시작 포인터, 메모리에 넣을 값, 넣고자 하는 메모리 크기)
-								//특정 범위에 있는 연속된 메모리에 값을 지정하고 싶을 때 사용
+					//(시작 포인터, 메모리에 넣을 값, 넣고자 하는 메모리 크기)
+					//특정 범위에 있는 연속된 메모리에 값을 지정하고 싶을 때 사용
 	
-	DIR *dp = NULL;				//디렉토리	
+	DIR *dp = NULL;		//디렉토리	
  	struct dirent *d = NULL;	//파일	
 
-								/*	참고 블로그 : https://sosal.kr/114
-								struct dirent{
-   	 							long d_ino;                            아이노드
-  								off_t d_off;                             dirent 의 offset
-    							unsigned short d_reclen;           d_name 의 길이
-   								char d_name [NAME_MAX+1];   파일 이름(없다면 NULL로 종료) 
-								}
-								*/	
+				/*	참고 블로그 : https://sosal.kr/114
+				struct dirent{
+   	 			long d_ino;                            아이노드
+  				off_t d_off;                             dirent 의 offset
+    				unsigned short d_reclen;           d_name 의 길이
+   				char d_name [NAME_MAX+1];   파일 이름(없다면 NULL로 종료) 
+				}
+				*/	
 			
  	struct stat st;		
   	char path[BUFSIZ+1];	
 	
 	getcwd(dir, 1024);			//char * getcwd(char *buf, size_t size);
-								//현재 작업 디렉토리의 이름 size만큼 길이로 buf에 복사
-								//size_t : 해당 시스템에서 어떤 객체나 값이 포함할 수 있는 최대 크기의 데이터를 표현하는 타입
-								//		   unsigned 형으로 나타낸다.
+					//현재 작업 디렉토리의 이름 size만큼 길이로 buf에 복사
+					//size_t : 해당 시스템에서 어떤 객체나 값이 포함할 수 있는 최대 크기의 데이터를 표현하는 타입
+					//	unsigned 형으로 나타낸다.
 					
 	if ((dp = opendir(dir)) == NULL)	// 디렉토리 열기 
-		perror(dir);					// 오류 메세지 출력	
+		perror(dir);		// 오류 메세지 출력	
 	
-	while ((d = readdir(dp)) != NULL) {				// 디렉토리 내의 각 파일에 대해 
+	while ((d = readdir(dp)) != NULL) {			// 디렉토리 내의 각 파일에 대해 
 		sprintf(path, "%s/%s", dir, d->d_name); 	// 파일 경로명 만들기 
-		if (lstat(path, &st) < 0) 					// 파일 상태 정보 가져오기  
-			perror(path);							// 오류 메세지 출력	
-		if(argc>1)		
-			Is_option(*d, st, argv[1]);				//argv[0] = dl	/ argv[1] = option			
+		if (lstat(path, &st) < 0) 			// 파일 상태 정보 가져오기  
+			perror(path);			// 오류 메세지 출력	
+		if(argc>1)				// dl 이외의 명령을 받았을 때
+			Is_option(*d, st, argv[1]);		// argv[0] = dl	/ argv[1] = option			
 		printf("%s\n", d->d_name);			
 	}
 	
@@ -176,7 +176,7 @@ char* perm(mode_t mode) {
 		if (mode & (S_IREAD >> i*3)) 
 			perms[i*3] = 'r';				// 읽기 권한
 		if (mode & (S_IWRITE >> i*3)) 
-			perms[i*3+1] = 'w';				// 쓰기 권한
+			perms[i*3+1] = 'w';			// 쓰기 권한
 		if (mode & (S_IEXEC >> i*3)) 
 			perms[i*3+2] = 'x';				// 접근 권한
 	}
